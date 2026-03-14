@@ -33,6 +33,34 @@ const createUser = async(req: Request, res: Response) => {
      }
 }
 
+// GET method
+const getAllUsers = async(req: Request, res: Response) => {
+     try{
+          const result = await userServices.getAllUsers();
+
+          if(result?.rows.length > 0) {
+               res.status(200).json({
+                    success: false,
+                    message: "Users fetched successfully",
+                    data: result?.rows
+               });
+          }else{
+               res.status(404).json({
+                    success: false,
+                    message: "Users not found",
+                    data: null
+               });
+          }
+     }catch(err: any) {
+          res.status(500).json({
+               success: false,
+               message: "Something went wrong!",
+               data: null
+          });
+     }
+}
+
 export const userControllers = {
      createUser,
+     getAllUsers,
 };
