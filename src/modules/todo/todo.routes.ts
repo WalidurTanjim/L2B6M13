@@ -11,4 +11,7 @@ router.get("/", todoControllers.getAllTodos);
 
 router.get("/:id", todoControllers.getTodoById);
 
+// DELETE method
+router.delete("/:id", todoControllers.deleteTodoById);
+
 export const todoRouter = router;

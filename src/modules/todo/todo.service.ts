@@ -20,8 +20,16 @@ const getTodoById = async(id: string) => {
      return result;
 }
 
+// DELETE method
+const deleteTodoById = async(id: string) => {
+     const result = await pool.query(`DELETE FROM todos WHERE id=$1 RETURNING *`, [id]);
+
+     return result;
+}
+
 export const todoServices = {
      createTodo,
      getAllTodos,
      getTodoById,
+     deleteTodoById,
 }
