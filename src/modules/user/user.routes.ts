@@ -9,4 +9,6 @@ router.post("/", userControllers.createUser);
 // GET method
 router.get("/", userControllers.getAllUsers);
 
+router.get("/:id", userControllers.getUserById);
+
 export const userRouter = router;

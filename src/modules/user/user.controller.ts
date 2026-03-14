@@ -60,7 +60,47 @@ const getAllUsers = async(req: Request, res: Response) => {
      }
 }
 
+const getUserById = async(req: Request, res: Response) => {
+     const { id } = req?.params;
+
+     if(!id) {
+          return res.status(400).json({
+               success: false,
+               message: "Valid id is required",
+               data: null
+          });
+     }
+
+     try{
+          const result = await userServices.getUserById(id as string);
+
+          if(result?.rows.length > 0){
+               res.status(200).json({
+                    success: true,
+                    message: "User fetched successfully",
+                    data: result?.rows[0]
+               });
+          }else{
+               res.status(404).json({
+                    success: false,
+                    message: "User not found!",
+                    data: null
+               });
+          }
+     }catch(err: any) {
+          res.status(500).json({
+               success: false,
+               message: "Something went wrong!",
+               data: null
+          });
+
+          console.error(err);
+          console.error(err?.message);
+     }
+}
+
 export const userControllers = {
      createUser,
      getAllUsers,
+     getUserById,
 };
