@@ -135,9 +135,59 @@ const deleteUserById = async(req: Request, res: Response) => {
      }
 }
 
+// PUT method
+const updateUserById = async(req: Request, res: Response) => {
+     const { id } = req?.params;
+     const { name, email } = await req?.body;
+
+     if(!id) {
+          return res.status(400).json({
+               success: false,
+               message: "Valid id is required",
+               data: null
+          });
+     }
+
+     if(!name || !email) {
+          return res.status(400).json({
+               success: false,
+               message: "Valid name & email is required",
+               data: null
+          });
+     }
+
+     try{
+          const result = await userServices.updateUserById(name, email, id as string);
+
+          if(result?.rowCount === 0){
+               res.status(404).json({
+                    success: false,
+                    message: "User not found!",
+                    data: null
+               });
+          }else{
+               res.status(201).json({
+                    success: true,
+                    message: "User updated successfully",
+                    data: result?.rows[0]
+               });
+          }
+     }catch(err: any) {
+          res.status(500).json({
+               success: false,
+               message: "Something went wrong!",
+               data: null
+          });
+
+          console.error(err);
+          console.error(err?.message);
+     }
+}
+
 export const userControllers = {
      createUser,
      getAllUsers,
      getUserById,
      deleteUserById,
+     updateUserById
 };
