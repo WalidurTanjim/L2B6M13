@@ -9,4 +9,6 @@ router.post("/", todoControllers.createTodo);
 // GET method
 router.get("/", todoControllers.getAllTodos);
 
+router.get("/:id", todoControllers.getTodoById);
+
 export const todoRouter = router;
