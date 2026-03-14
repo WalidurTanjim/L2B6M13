@@ -1,11 +1,15 @@
 import express, { Request, Response } from "express";
 import config from "./config";
+import initDB from "./config/db";
 
 const app = express()
 const port = config.port || 5000;
 
 // parser
 app.use(express.json());
+
+// initializing database
+initDB();
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello Next Level Developers 😒');
