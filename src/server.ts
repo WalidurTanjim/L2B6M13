@@ -1,12 +1,8 @@
 import express, { Request, Response } from "express";
-import dotenv from "dotenv";
-// import { Pool } from "pg";
-import path from "path";
-
-dotenv.config({ path: path.join(process.cwd(), ".env") });
+import config from "./config";
 
 const app = express()
-const port = process.env.PORT || 5000;
+const port = config.port || 5000;
 
 // parser
 app.use(express.json());
