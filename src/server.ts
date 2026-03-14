@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import config from "./config";
 import initDB from "./config/db";
+import logger from "./middleware/logger";
 
 const app = express()
 const port = config.port || 5000;
@@ -11,7 +12,7 @@ app.use(express.json());
 // initializing database
 initDB();
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/', logger, (req: Request, res: Response) => {
   res.send('Hello Next Level Developers 😒');
 })
 
