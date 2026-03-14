@@ -20,8 +20,16 @@ const getUserById = async(id: string) => {
      return result;
 }
 
+// DELETE method
+const deleteUserById = async(id: string) => {
+     const result = await pool.query(`DELETE FROM users WHERE id=$1 RETURNING *`, [id]);
+
+     return result;
+}
+
 export const userServices = {
      createUser,
      getAllUsers,
      getUserById,
+     deleteUserById,
 }
