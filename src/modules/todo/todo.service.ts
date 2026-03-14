@@ -27,9 +27,17 @@ const deleteTodoById = async(id: string) => {
      return result;
 }
 
+// PUT method
+const updateTodoById = async(user_id: string, title: string, id: string) => {
+     const result = await pool.query(`UPDATE todos SET user_id=$1, title=$2 WHERE id=$3 RETURNING *`, [user_id, title, id]);
+
+     return result;
+}
+
 export const todoServices = {
      createTodo,
      getAllTodos,
      getTodoById,
      deleteTodoById,
+     updateTodoById
 }

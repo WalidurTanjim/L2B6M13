@@ -139,9 +139,59 @@ const deleteTodoById = async(req: Request, res: Response) => {
      }
 }
 
+// PUT method
+const updateTodoById = async(req: Request, res: Response) => {
+     const { id } = req?.params;
+     const { user_id, title } = await req?.body;
+
+     if(!id) {
+          return res.status(400).json({
+               success: false,
+               message: "Valid id is required",
+               data: null
+          })
+     }
+
+     if(!user_id || !title) {
+          return res.status(400).json({
+               success: false,
+               message: "Valid user id & title is required",
+               data: null
+          })
+     }
+
+     try{
+          const result = await todoServices.updateTodoById(user_id, title, id as string);
+
+          if(result?.rowCount === 0){
+               res.status(404).json({
+                    success: false,
+                    message: "Todo not found!",
+                    data: null
+               });
+          }else{
+               res.status(201).json({
+                    success: true,
+                    message: "Todo updated successfully",
+                    data: result?.rows[0]
+               });
+          }
+     }catch(err: any) {
+          res.status(500).json({
+               success: false,
+               message: "Something went wrong!",
+               data: null
+          });
+
+          console.error(err);
+          console.error(err?.message);
+     }
+}
+
 export const todoControllers = {
      createTodo,
      getAllTodos,
      getTodoById,
      deleteTodoById,
+     updateTodoById
 }
