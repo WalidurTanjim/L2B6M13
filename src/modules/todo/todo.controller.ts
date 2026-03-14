@@ -34,6 +34,37 @@ const createTodo = async(req: Request, res: Response) => {
      }
 }
 
+// GET method
+const getAllTodos = async(req: Request, res: Response) => {
+     try{
+          const result = await todoServices.getAllTodos();
+
+          if(result?.rows.length > 0){
+               res.status(200).json({
+                    success: true,
+                    message: "Todos fetched successfully",
+                    data: result?.rows
+               });
+          }else{
+               res.status(404).json({
+                    success: false,
+                    message: "Todos not found!",
+                    data: null
+               });
+          }
+     }catch(err: any) {
+          res.status(500).json({
+               success: false,
+               message: "Something went wrong!",
+               data: null
+          });
+
+          console.error(err);
+          console.error(err?.message);
+     }
+}
+
 export const todoControllers = {
      createTodo,
+     getAllTodos,
 }
