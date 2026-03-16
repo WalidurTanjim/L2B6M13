@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { pool } from "../../config/db";
 import { todoServices } from "./todo.service";
 
 // POST method
@@ -15,7 +14,7 @@ const createTodo = async(req: Request, res: Response) => {
      }
 
      try{
-          const result = await todoServices.createTodo(user_id, title);
+          const result = await todoServices.createTodo(req?.body);
 
           res.status(201).json({
                success: true,
