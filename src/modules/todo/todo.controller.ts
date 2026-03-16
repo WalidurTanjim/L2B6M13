@@ -160,7 +160,7 @@ const updateTodoById = async(req: Request, res: Response) => {
      }
 
      try{
-          const result = await todoServices.updateTodoById(user_id, title, id as string);
+          const result = await todoServices.updateTodoById(id as string, req?.body);
 
           if(result?.rowCount === 0){
                res.status(404).json({
