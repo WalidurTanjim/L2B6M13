@@ -3,12 +3,12 @@ import { userServices } from "./user.service";
 
 // POST method
 const createUser = async(req: Request, res: Response) => {
-     const { name, email } = await req?.body;
+     const { name, email, password } = await req?.body;
 
-     if(!name || !email) {
+     if(!name || !email || !password) {
           return res.status(400).json({
                success: false,
-               message: "Valid name & email required",
+               message: "Valid name, email & password required",
                data: null
           });
      }
