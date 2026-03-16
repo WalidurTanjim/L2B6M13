@@ -157,7 +157,7 @@ const updateUserById = async(req: Request, res: Response) => {
      }
 
      try{
-          const result = await userServices.updateUserById(name, email, id as string);
+          const result = await userServices.updateUserById(id as string, req?.body);
 
           if(result?.rowCount === 0){
                res.status(404).json({

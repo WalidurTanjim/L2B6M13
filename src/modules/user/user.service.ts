@@ -30,7 +30,9 @@ const deleteUserById = async(id: string) => {
 }
 
 // PUT method 
-const updateUserById = async(name: string, email: string, id: string) => {
+const updateUserById = async(id: string, payload: Record<string, unknown>) => {
+     const {name, email} = payload;
+
      const result = await pool.query(`UPDATE users SET name=$1, email=$2 WHERE id=$3 RETURNING *`, [name, email, id]);
 
      return result;
