@@ -1,5 +1,6 @@
 import express from "express";
 import { userControllers } from "./user.controller";
+import auth from "../../middleware/auth";
 
 const router = express.Router();
 
@@ -7,7 +8,7 @@ const router = express.Router();
 router.post("/", userControllers.createUser);
 
 // GET method
-router.get("/", userControllers.getAllUsers);
+router.get("/", auth("admin"), userControllers.getAllUsers);
 
 router.get("/:id", userControllers.getUserById);
 
